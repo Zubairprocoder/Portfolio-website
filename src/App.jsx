@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Menu, X } from "lucide-react"; // 🔹 Added Close icon (X)
-import { FaFacebookF, FaTimes, FaLinkedinIn, FaDribbble } from "react-icons/fa";
+import { FaFacebookF, FaGlobe, FaLinkedinIn, FaTwitter } from "react-icons/fa";
 
 const App = () => {
   const [animate, setAnimate] = useState(null);
@@ -10,6 +10,55 @@ const App = () => {
   const [email, setEmail] = useState("");
   const [active, setActive] = useState("");
   const [hovered, setHovered] = useState(null);
+  const links = [
+    { svg: "/about.svg", btn: "About Me", id: "about" },
+    { svg: "/service.svg", btn: "My Service", id: "service" },
+    { svg: "/choose.svg", btn: "Why Choose", id: "choose" },
+    { svg: "/study.svg", btn: "Case Study", id: "case" },
+    { svg: "/projects.svg", btn: "Feature Project", id: "projects" },
+    { svg: "/award.svg", btn: "Award", id: "award" },
+    { svg: "/design.svg", btn: "Design Skill", id: "design" },
+    { svg: "/test.svg", btn: "Testimonial", id: "testimonial" },
+    { svg: "/contact.svg", btn: "Connect Me", id: "connect" },
+  ];
+
+  // <-- Declare refs inside component BEFORE using them
+  const sectionRefs = {
+    about: useRef(null),
+    service: useRef(null),
+    choose: useRef(null),
+    case: useRef(null),
+    projects: useRef(null),
+    award: useRef(null),
+    design: useRef(null),
+    testimonial: useRef(null),
+    connect: useRef(null),
+  };
+
+  const scrollToSection = (id) => {
+    const ref = sectionRefs[id];
+    if (ref && ref.current) {
+      ref.current.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  };
+  const socialLinks = [
+    {
+      icon: <FaFacebookF size={18} />,
+      url: "https://facebook.com",
+    },
+    {
+      icon: <FaLinkedinIn size={18} />,
+      url: "https://linkedin.com",
+    },
+    {
+      icon: <FaTwitter size={18} />,
+      url: "https://twitter.com",
+    },
+    {
+      icon: <FaGlobe size={18} />,
+      url: "https://portfolio-website-ten-orpin-42.vercel.app/",
+    },
+  ];
   // 🔹 Close sidebar on outside click
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -229,26 +278,7 @@ const App = () => {
       skills: ["Webflow", "HTML", "CSS", "JavaScript"],
     },
   ];
-  // Sidebar links
- const links = [
-   { svg: "/about.svg", btn: "About Me", id: "about" },
-   { svg: "/service.svg", btn: "My Service", id: "service" },
-   { svg: "/choose.svg", btn: "Why Choose", id: "choose" },
-   { svg: "/study.svg", btn: "Case Study", id: "case" },
-   { svg: "/projects.svg", btn: "Feature Project", id: "projects" },
-   { svg: "/award.svg", btn: "Award", id: "award" },
-   { svg: "/design.svg", btn: "Design Skill", id: "design" },
-   { svg: "/test.svg", btn: "Testimonial", id: "testimonial" },
-   { svg: "/contact.svg", btn: "Connect Me", id: "connect" },
- ];
 
-  const toggleSection = (id) => {
-    if (active === id) {
-      setActive(""); // same link clicked → reset to all
-    } else {
-      setActive(id);
-    }
-  };
   const infiniteText = texts.join(" ⚡ ");
   useEffect(() => {
     if (animate) {
@@ -306,25 +336,24 @@ const App = () => {
           </h2>
           {/* 🔹 Social Icons Box */}
           <div className="flex items-center justify-center gap-4 mt-4 bg-gray-800 rounded-lg p-3 shadow-md">
-            <div className="w-8 h-8 border border-white rounded-full flex items-center justify-center text-white hover:bg-white hover:text-gray-800 transition">
-              <FaFacebookF size={14} />
-            </div>
-            <div className="w-8 h-8 border border-white rounded-full flex items-center justify-center text-white hover:bg-white hover:text-gray-800 transition">
-              <FaTimes size={14} />
-            </div>
-            <div className="w-8 h-8 border border-white rounded-full flex items-center justify-center text-white hover:bg-white hover:text-gray-800 transition">
-              <FaLinkedinIn size={14} />
-            </div>
-            <div className="w-8 h-8 border border-white rounded-full flex items-center justify-center text-white hover:bg-white hover:text-gray-800 transition">
-              <FaDribbble size={14} />
-            </div>
+            {socialLinks.map((item, index) => (
+              <a
+                key={index}
+                href={item.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 border border-white rounded-full flex items-center justify-center text-white hover:bg-white hover:text-gray-800 transition"
+              >
+                {item.icon}
+              </a>
+            ))}
           </div>
           {/* Nav Links */}
           {links.map((link) => (
             <div
               key={link.id}
-              onClick={() => toggleSection(link.id)}
-              className="flex bg-white items-center gap-2 p-3 mb-2 rounded-lg cursor-pointer mt-3 transition"
+              onClick={() => scrollToSection(link.id)}
+              className="flex bg-white items-center gap-2 p-3 mb-2 rounded-lg cursor-pointer mt-3 transition hover:bg-[#FFFFFF]"
             >
               <img src={link.svg} alt={link.btn} className="w-5 h-5" />
               <span className="text-gray-800 dark:text-white">{link.btn}</span>
@@ -612,7 +641,10 @@ const App = () => {
             technologies 🚀 | Coding is my creative outlet ❤️
           </marquee>
           {/* About me */}
-          <div className="bg-[#323232] rounded-xl text-[#fff] p-8 mt-15">
+          <div
+            ref={sectionRefs.about}
+            className="bg-[#323232] rounded-xl text-[#fff] p-8 mt-15"
+          >
             <h3 className=" uppercase font-bold">- About Me</h3>
             <div className="flex flex-col md:flex-row gap-6">
               <p className="font-medium text-md pt-2">
@@ -649,7 +681,10 @@ const App = () => {
             </div>
           </div>
           {/* SERVICE */}
-          <div className="flex flex-col gap-4 mt-5 p-8">
+          <div
+            ref={sectionRefs.service}
+            className="flex flex-col gap-4 mt-5 p-8"
+          >
             <h3 className=" uppercase font-bold">- MY SERVICE</h3>
             <h2 className="font-semibold text-4xl">
               Professional Service Solutions
@@ -741,7 +776,10 @@ const App = () => {
             </div>
           </div>
           {/*Why Choose */}
-          <div className="flex p-8 gap-4 flex-col items-start justify-center mt-5">
+          <div
+            ref={sectionRefs.choose}
+            className="flex p-8 gap-4 flex-col items-start justify-center mt-5"
+          >
             <h2 className="font-semibold ">- Why Choose</h2>
             <h1 className="font-semibold text-4xl">Best Reasons Choosing</h1>
             <p className="text-[#525252]">
@@ -786,7 +824,10 @@ const App = () => {
             </div>
           </div>
           {/*CASE STUDY */}
-          <div className="flex p-8 gap-4 flex-col items-start justify-center mt-5">
+          <div
+            ref={sectionRefs.case}
+            className="flex p-8 gap-4 flex-col items-start justify-center mt-5"
+          >
             <h2 className="font-semibold ">- CASE STUDY</h2>
             <h1 className="font-semibold text-4xl">Real Results Showcase</h1>
             <p className="text-[#525252]">
@@ -874,7 +915,10 @@ const App = () => {
             </div>
           </div>
           {/* FEATURE PROJECT */}
-          <div className="flex flex-col gap-4 mt-5 p-8">
+          <div
+            ref={sectionRefs.projects}
+            className="flex flex-col gap-4 mt-5 p-8"
+          >
             <div className="flex flex-col gap-5 p-4">
               <h2 className="font-semibold ">- FEATURE PROJECT</h2>
               <h1 className="font-semibold text-4xl">Showcase Project Work</h1>
@@ -919,7 +963,7 @@ const App = () => {
             </div>
           </div>
           {/* AWARD */}
-          <div className="flex flex-col gap-5 p-8 mt-6">
+          <div ref={sectionRefs.award} className="flex flex-col gap-5 p-8 mt-6">
             <div className="flex flex-col gap-5 p-4">
               <h2 className="font-semibold ">- AWARD</h2>
               <h1 className="font-semibold text-4xl">
@@ -976,7 +1020,10 @@ const App = () => {
             </div>
           </div>{" "}
           {/* Creative Edge*/}
-          <div className="flex flex-col gap-3 mt-5 p-8">
+          <div
+            ref={sectionRefs.design}
+            className="flex flex-col gap-3 mt-5 p-8"
+          >
             <div className="flex flex-col gap-5 p-4">
               <h2 className="font-semibold ">- Creative Edge</h2>
               <h1 className="font-semibold text-4xl">
@@ -1024,7 +1071,7 @@ const App = () => {
             </div>
           </div>
           {/* TESTIMONIAL */}
-          <div className="flex">
+          <div ref={sectionRefs.testimonial} className="flex">
             <div className="flex flex-col gap-5 p-8">
               <h2 className="font-semibold ">- TESTIMONIAL</h2>
               <h1 className="font-semibold text-4xl">
@@ -1036,7 +1083,10 @@ const App = () => {
               </p>
             </div>
           </div>
-          <div className="bg-[#323232] text-white rounded-3xl p-10 md:p-16 flex flex-col gap-8 shadow-lg">
+          <div
+            ref={sectionRefs.connect}
+            className="bg-[#323232] text-white rounded-3xl p-10 md:p-16 flex flex-col gap-8 shadow-lg"
+          >
             {/* Heading */}
             <div className="flex flex-col gap-3">
               <h2 className="text-3xl md:text-4xl font-semibold">
