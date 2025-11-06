@@ -230,17 +230,18 @@ const App = () => {
     },
   ];
   // Sidebar links
-  const links = [
-    { svg: "/public/about.svg", btn: "About Me", id: "about" },
-    { svg: "/public/service.svg", btn: "My Service", id: "service" },
-    { svg: "/public/choose.svg", btn: "Why Choose", id: "choose" },
-    { svg: "/public/study.svg", btn: "Case Study", id: "case" },
-    { svg: "/public/projects.svg", btn: "Feature Project", id: "projects" },
-    { svg: "/public/award.svg", btn: "Award", id: "award" },
-    { svg: "/public/design.svg", btn: "Design Skill", id: "design" },
-    { svg: "/public/test.svg", btn: "Testimonial", id: "testimonial" },
-    { svg: "/public/contact.svg", btn: "Connect Me", id: "connect" },
-  ];
+ const links = [
+   { svg: "/about.svg", btn: "About Me", id: "about" },
+   { svg: "/service.svg", btn: "My Service", id: "service" },
+   { svg: "/choose.svg", btn: "Why Choose", id: "choose" },
+   { svg: "/study.svg", btn: "Case Study", id: "case" },
+   { svg: "/projects.svg", btn: "Feature Project", id: "projects" },
+   { svg: "/award.svg", btn: "Award", id: "award" },
+   { svg: "/design.svg", btn: "Design Skill", id: "design" },
+   { svg: "/test.svg", btn: "Testimonial", id: "testimonial" },
+   { svg: "/contact.svg", btn: "Connect Me", id: "connect" },
+ ];
+
   const toggleSection = (id) => {
     if (active === id) {
       setActive(""); // same link clicked → reset to all
