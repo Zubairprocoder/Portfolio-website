@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+body{
+    background-color: white;
+}
+@layer utilities {
+  @keyframes hover-slide-up {
+    0%, 80%, 100% { transform: translateY(0); }
+    20% { transform: translateY(-3rem); } /* text goes up */
+  }
+
+  @keyframes hover-arrow-right {
+    0%, 80%, 100% { transform: translateX(0); }
+    50% { transform: translateX(3rem); } /* arrow moves right */
+  }
+
+  .animate-hover-up {
+    animation: hover-slide-up 2s forwards;
+  }
+
+  .animate-hover-arrow {
+    animation: hover-arrow-right 2s forwards;
+  }
+}
+
+/* Optional: custom global styles */
+body {
+  @apply bg-gray-50 text-gray-900;
+}
+
+/* Marquee animation (if you don’t want to use tailwind.config.js) */
+@keyframes marqueeLR {
+  0% {
+    transform: translateX(0%);
+  }
+  50% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+.animate-marqueeLR {
+  animation: marqueeLR 20s linear infinite;
+}
