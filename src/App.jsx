@@ -497,12 +497,12 @@ const App = () => {
                 I specialize in delivering designs that are not only visually
                 striking but also impactful.
               </p>
-              <div className="flex gap-6  justify-center mt-6 w-full items-center text-center ">
+              <div className="flex md:gap-6  gap-2 justify-center mt-6 w-full items-center text-center  md:flex-row ">
                 {/* 🔹 Button 1 */}
                 <button
                   onMouseEnter={() => setHovered("talk")}
                   onMouseLeave={() => setHovered(null)}
-                  className="relative flex items-center gap-3 md:px-8 px-6 h-12 text-center cursor-pointer bg-black text-white font-semibold rounded-xl overflow-hidden transition-all duration-500"
+                  className="relative flex items-center gap-3 md:px-8 px-2 h-12 text-center cursor-pointer bg-black text-white font-semibold rounded-xl overflow-hidden transition-all duration-500"
                 >
                   <span
                     className={`transition-transform duration-700 ${
@@ -524,7 +524,7 @@ const App = () => {
                 <button
                   onMouseEnter={() => setHovered("cv")}
                   onMouseLeave={() => setHovered(null)}
-                  className="relative flex items-center gap-3 md:px-8 px-4 h-12 bg-white text-black font-semibold border border-black rounded-xl cursor-pointer overflow-hidden transition-all duration-500"
+                  className="relative flex items-center gap-3 md:px-8 px-2 h-12 bg-white text-black font-semibold border border-black rounded-xl cursor-pointer overflow-hidden transition-all duration-500"
                 >
                   <span
                     className={`transition-transform duration-700 ${
@@ -653,12 +653,12 @@ const App = () => {
             <h2 className="font-semibold text-4xl">
               Professional Service Solutions
             </h2>
-            <div className="flex gap-2 justify-around mt-6 w-full ">
+            <div className="flex gap-2 justify-around mt-6 w-full text-center items-center  md:flex-row">
               {/* 🔹 Button 1 */}
               <button
                 onMouseEnter={() => setHovered("talk")}
                 onMouseLeave={() => setHovered(null)}
-                className="relative flex items-center gap-3 md:px-8 px-6 h-12 text-center cursor-pointer bg-black text-white font-semibold rounded-xl overflow-hidden transition-all duration-500"
+                className="relative flex items-center gap-3 md:px-8 px-3 h-12 text-center cursor-pointer bg-black text-white font-semibold rounded-xl overflow-hidden transition-all duration-500"
               >
                 <span
                   className={`transition-transform duration-700 ${
@@ -680,7 +680,7 @@ const App = () => {
               <button
                 onMouseEnter={() => setHovered("cv")}
                 onMouseLeave={() => setHovered(null)}
-                className="relative flex items-center gap-3 md:px-8 px-4 h-12 bg-white text-black font-semibold border border-black rounded-xl cursor-pointer overflow-hidden transition-all duration-500"
+                className="relative flex items-center gap-3 md:px-8 px-3 h-12 bg-white text-black font-semibold border border-black rounded-xl cursor-pointer overflow-hidden transition-all duration-500"
               >
                 <span
                   className={`transition-transform duration-700 ${
@@ -934,9 +934,9 @@ const App = () => {
               {awards.map((item, index) => (
                 <div
                   key={index}
-                  className="flex  sm:flex-row items-start sm:items-start justify-between gap-6 bg-[#F9F9F9] rounded-xl p-5 shadow-sm hover:shadow-md transition"
+                  className="flex flex-col  sm:flex-row items-start sm:items-start justify-between gap-6 bg-[#F9F9F9] rounded-xl p-5 shadow-sm hover:shadow-md transition"
                 >
-                  <div className="flex flex-col md:flex-row  items-start sm:items-start gap-2 text-start sm:text-left">
+                  <div className="flex  md:flex-row  items-start sm:items-start gap-2 text-start sm:text-left">
                     {/* Company Logo */}
                     <img
                       src={item.companyImg}
@@ -953,7 +953,7 @@ const App = () => {
                       <p className="text-[#525252] text-sm">{item.role}</p>
                     </div>
                   </div>
-                  <div className="flex flex-col md:flex-row items-center md:justify-around justify-center  md:gap-11 gap-6">
+                  <div className="flex  md:flex-row items-center md:justify-around justify-center  md:gap-11 gap-6">
                     {/* Award Image */}
                     <img
                       src={item.awardImg}
