@@ -8,8 +8,25 @@ const App = () => {
   const sidebarRef = useRef(null);
   const [reset, setReset] = useState(false);
   const [email, setEmail] = useState("");
-  const [active, setActive] = useState("");
   const [hovered, setHovered] = useState(null);
+  const [activeIndex, setActiveIndex] = useState(null);
+  const handleMouseEnter = (btn) => {
+    setHovered(btn);
+    // 200ms baad wapas center
+    setTimeout(() => {
+      setHovered(null);
+    }, 200);
+  };
+  // Track which div is open
+  
+
+  const handleClick = (index) => {
+    // toggle logic: agar same div click hua -> close; otherwise open clicked
+    setActiveIndex(activeIndex === index ? null : index);
+  };
+  const handleMouseLeave = () => {
+    setHovered(null);
+  };
   const links = [
     { svg: "/about.svg", btn: "About Me", id: "about" },
     { svg: "/service.svg", btn: "My Service", id: "service" },
@@ -114,18 +131,30 @@ const App = () => {
     {
       p: "Branding",
       src: "https://cdn.prod.website-files.com/687093791857daf2b2090c68/688b9e09d32f9f878b9f63bd_Right%20Arrow.svg",
+      p1: "Wireframing & prototyping",
+      p2: "Usability testing & user feedback analysis",
+      p3: "Usability testing & user feedback analysis",
     },
     {
       p: "Web Development",
       src: "https://cdn.prod.website-files.com/687093791857daf2b2090c68/688b9e09d32f9f878b9f63bd_Right%20Arrow.svg",
+      p1: "Wireframing & prototyping",
+      p2: "Usability testing & user feedback analysis",
+      p3: "Usability testing & user feedback analysis",
     },
     {
       p: "Web Design",
       src: "https://cdn.prod.website-files.com/687093791857daf2b2090c68/688b9e09d32f9f878b9f63bd_Right%20Arrow.svg",
+      p1: "Wireframing & prototyping",
+      p2: "Usability testing & user feedback analysis",
+      p3: "Usability testing & user feedback analysis",
     },
     {
       p: "Marketing",
       src: "https://cdn.prod.website-files.com/687093791857daf2b2090c68/688b9e09d32f9f878b9f63bd_Right%20Arrow.svg",
+      p1: "Wireframing & prototyping",
+      p2: "Usability testing & user feedback analysis",
+      p3: "Usability testing & user feedback analysis",
     },
   ];
   const caseStudies = [
@@ -523,27 +552,37 @@ const App = () => {
                   </div>
                 </div>
               </div>
-              <p className="mt-3 text-center ">
+              <p className="mt-3 text-center lg:text-start px-3 ">
                 I specialize in delivering designs that are not only visually
                 striking but also impactful.
               </p>
-              <div className="flex md:gap-6  gap-2 justify-center mt-6 w-full items-center text-center  md:flex-row ">
+              <div className="flex md:gap-6  gap-2 justify-center mt-6 w-full items-center text-center lg:px-3 lg:justify-start  md:flex-row ">
                 {/* 🔹 Button 1 */}
                 <button
-                  onMouseEnter={() => setHovered("talk")}
-                  onMouseLeave={() => setHovered(null)}
+                  onMouseEnter={() => handleMouseEnter("talk")}
+                  onMouseLeave={handleMouseLeave}
                   className="relative flex items-center gap-3 md:px-8 px-2 h-12 text-center cursor-pointer bg-black text-white font-semibold rounded-xl overflow-hidden transition-all duration-500"
                 >
                   <span
-                    className={`transition-transform duration-700 ${
-                      hovered === "talk" ? "-translate-y-12" : "translate-y-0"
+                    className={`transition-transform duration-700 ease-in-out ${
+                      hovered === "talk"
+                        ? "-translate-y-12 opacity-0"
+                        : "translate-y-0 opacity-100"
                     }`}
                   >
-                    Let’s talk
+                    <a
+                      href="https://calendly.com/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Let’s talk
+                    </a>
                   </span>
                   <span
-                    className={`transition-transform text-4xl duration-700 ${
-                      hovered === "talk" ? "translate-x-33" : "-translate-x-0"
+                    className={`transition-transform text-4xl duration-700 ease-in-out ${
+                      hovered === "talk"
+                        ? "translate-x-8 opacity-0"
+                        : "translate-x-0 opacity-100"
                     }`}
                   >
                     →
@@ -552,20 +591,26 @@ const App = () => {
 
                 {/* 🔹 Button 2 */}
                 <button
-                  onMouseEnter={() => setHovered("cv")}
-                  onMouseLeave={() => setHovered(null)}
+                  onMouseEnter={() => handleMouseEnter("cv")}
+                  onMouseLeave={handleMouseLeave}
                   className="relative flex items-center gap-3 md:px-8 px-2 h-12 bg-white text-black font-semibold border border-black rounded-xl cursor-pointer overflow-hidden transition-all duration-500"
                 >
                   <span
-                    className={`transition-transform duration-700 ${
-                      hovered === "cv" ? "-translate-y-12" : "translate-y-0"
+                    className={`transition-transform duration-700 ease-in-out ${
+                      hovered === "cv"
+                        ? "-translate-y-12 opacity-0"
+                        : "translate-y-0 opacity-100"
                     }`}
                   >
-                    Download CV
+                    <a href="/cv.pdf" download="Zubair_Pro_Coder_CV.pdf">
+                      <span>Download CV</span>
+                    </a>
                   </span>
                   <span
-                    className={`transition-transform text-4xl duration-700 ${
-                      hovered === "cv" ? "translate-x-33" : "-translate-x-0"
+                    className={`transition-transform text-4xl duration-700 ease-in-out ${
+                      hovered === "cv"
+                        ? "translate-x-8 opacity-0"
+                        : "translate-x-0 opacity-100"
                     }`}
                   >
                     →
@@ -573,7 +618,7 @@ const App = () => {
                 </button>
               </div>
               {/* images */}
-              <div className="flex lg:flex-col flex-col md:flex-row  lg:justify-start lg:items-start items-center justify-center gap-6">
+              <div className="flex lg:flex-col lg:px-3 flex-col md:flex-row  lg:justify-start lg:items-start items-center justify-center gap-6">
                 <div className="images mt-12 flex justify-center items-center lg:justify-start lg:items-start h-25">
                   <img
                     src="https://cdn.prod.website-files.com/687093791857daf2b2090c68/688344e499f7cdd68005ff5b_Satisfied%20client%2001.webp"
@@ -607,7 +652,7 @@ const App = () => {
                     98%
                   </div>
                 </div>
-                <div className="flex flex-col lg:items-start justify-start">
+                <div className="flex flex-col lg:items-start justify-start pt-10 lg:pt-0">
                   <div className=" font-medium pb-1.5">
                     Loved by founders globally
                   </div>
@@ -686,92 +731,125 @@ const App = () => {
             className="flex flex-col gap-4 mt-5 p-8"
           >
             <h3 className=" uppercase font-bold">- MY SERVICE</h3>
-            <h2 className="font-semibold text-4xl">
-              Professional Service Solutions
-            </h2>
-            <div className="flex gap-2 justify-around mt-6 w-full text-center items-center  md:flex-row">
-              {/* 🔹 Button 1 */}
-              <button
-                onMouseEnter={() => setHovered("talk")}
-                onMouseLeave={() => setHovered(null)}
-                className="relative flex items-center gap-3 md:px-8 px-3 h-12 text-center cursor-pointer bg-black text-white font-semibold rounded-xl overflow-hidden transition-all duration-500"
-              >
-                <span
-                  className={`transition-transform duration-700 ${
-                    hovered === "talk" ? "-translate-y-12" : "translate-y-0"
-                  }`}
+            <div className="flex flex-col lg:flex-row">
+              <h2 className="font-semibold text-4xl">
+                Professional Service Solutions
+              </h2>
+              <div className="flex gap-2 justify-around lg:justify-end lg:gap-12 mt-6 w-full text-center items-center  md:flex-row">
+                {/* 🔹 Button 1 */}
+                <button
+                  onMouseEnter={() => handleMouseEnter("talk")}
+                  onMouseLeave={handleMouseLeave}
+                  className="relative flex items-center gap-3 md:px-8 px-2 h-12 text-center cursor-pointer bg-black text-white font-semibold rounded-xl overflow-hidden transition-all duration-500"
                 >
-                  Hire Me
-                </span>
-                <span
-                  className={`transition-transform text-4xl duration-700 ${
-                    hovered === "talk" ? "translate-x-33" : "-translate-x-0"
-                  }`}
-                >
-                  →
-                </span>
-              </button>
-
-              {/* 🔹 Button 2 */}
-              <button
-                onMouseEnter={() => setHovered("cv")}
-                onMouseLeave={() => setHovered(null)}
-                className="relative flex items-center gap-3 md:px-8 px-3 h-12 bg-white text-black font-semibold border border-black rounded-xl cursor-pointer overflow-hidden transition-all duration-500"
-              >
-                <span
-                  className={`transition-transform duration-700 ${
-                    hovered === "cv" ? "-translate-y-12" : "translate-y-0"
-                  }`}
-                >
-                  Watch Video
-                </span>
-                <span
-                  className={`transition-transform text-4xl duration-700 ${
-                    hovered === "cv" ? "translate-x-33" : "-translate-x-0"
-                  }`}
-                >
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 20 20"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
+                  <span
+                    className={`transition-transform duration-700 ease-in-out ${
+                      hovered === "talk"
+                        ? "-translate-y-12 opacity-0"
+                        : "translate-y-0 opacity-100"
+                    }`}
                   >
-                    <path
-                      d="M9.99984 18.3333C14.6022 18.3333 18.3332 14.6023 18.3332 9.99996C18.3332 5.39759 14.6022 1.66663 9.99984 1.66663C5.39746 1.66663 1.6665 5.39759 1.6665 9.99996C1.6665 14.6023 5.39746 18.3333 9.99984 18.3333Z"
-                      stroke="black"
-                      stroke-width="1.25"
-                    ></path>
-                    <path
-                      d="M7.9165 9.33321V10.6669C7.9165 11.933 7.9165 12.566 8.2963 12.8219C8.67609 13.0777 9.1955 12.7946 10.2344 12.2285L11.4579 11.5615C12.7081 10.8802 13.3332 10.5395 13.3332 10C13.3332 9.46054 12.7081 9.11987 11.4579 8.43854L10.2344 7.77166C9.1955 7.20546 8.67609 6.92236 8.2963 7.17822C7.9165 7.43409 7.9165 8.06712 7.9165 9.33321Z"
-                      fill="black"
-                    ></path>
-                  </svg>
-                </span>
-              </button>
+                    <a
+                      href="https://www.linkedin.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <span>Hire Me</span>
+                    </a>
+                  </span>
+                  <span
+                    className={`transition-transform text-4xl duration-700 ease-in-out ${
+                      hovered === "talk"
+                        ? "translate-x-8 opacity-0"
+                        : "translate-x-0 opacity-100"
+                    }`}
+                  >
+                    →
+                  </span>
+                </button>
+
+                {/* 🔹 Button 2 */}
+                <button
+                  onMouseEnter={() => handleMouseEnter("cv")}
+                  onMouseLeave={handleMouseLeave}
+                  className="relative flex items-center gap-3 md:px-8 px-2 h-12 bg-white text-black font-semibold border border-black rounded-xl cursor-pointer overflow-hidden transition-all duration-500"
+                >
+                  <span
+                    className={`transition-transform duration-700 ease-in-out ${
+                      hovered === "cv"
+                        ? "-translate-y-12 opacity-0"
+                        : "translate-y-0 opacity-100"
+                    }`}
+                  >
+                    <a
+                      href="https://youtube.com/playlist?list=PLu0W_9lII9agq5TrH9XLIKQvv0iaF2X3w&si=0eMphO4jbSdPssSw"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Watch Video
+                    </a>
+                  </span>
+                  <span
+                    className={`transition-transform text-4xl duration-700 ease-in-out ${
+                      hovered === "cv"
+                        ? "translate-x-8 opacity-0"
+                        : "translate-x-0 opacity-100"
+                    }`}
+                  >
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 20 20"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M9.99984 18.3333C14.6022 18.3333 18.3332 14.6023 18.3332 9.99996C18.3332 5.39759 14.6022 1.66663 9.99984 1.66663C5.39746 1.66663 1.6665 5.39759 1.6665 9.99996C1.6665 14.6023 5.39746 18.3333 9.99984 18.3333Z"
+                        stroke="black"
+                        stroke-width="1.25"
+                      ></path>
+                      <path
+                        d="M7.9165 9.33321V10.6669C7.9165 11.933 7.9165 12.566 8.2963 12.8219C8.67609 13.0777 9.1955 12.7946 10.2344 12.2285L11.4579 11.5615C12.7081 10.8802 13.3332 10.5395 13.3332 10C13.3332 9.46054 12.7081 9.11987 11.4579 8.43854L10.2344 7.77166C9.1955 7.20546 8.67609 6.92236 8.2963 7.17822C7.9165 7.43409 7.9165 8.06712 7.9165 9.33321Z"
+                        fill="black"
+                      ></path>
+                    </svg>
+                  </span>
+                </button>
+              </div>
             </div>
             <div className="flex items-center justify-around gap-3 flex-col lg:flex-row p-3 w-full">
-              <div className="flex flex-col gap-5  w-full ">
-                {linkspt.map((linkspt, i) => (
-                  <div className="flex items-center cursor-pointer justify-between gap-3 w-full bg-[#F5F5F5] rounded-xl px-8 py-3">
-                    <a href="#Branding" className=" font-medium text-xl">
-                      {linkspt.p}
-                    </a>
-                    <a href="#">
+              <div className="flex flex-col gap-5 w-full">
+                {linkspt.map((link, i) => (
+                  <div key={i}>
+                    {/* clickable div */}
+                    <div
+                      onClick={() => handleClick(i)}
+                      className="flex items-center cursor-pointer justify-between gap-3 w-full bg-[#F5F5F5] rounded-xl px-8 py-3"
+                    >
+                      <span className="font-medium text-xl">{link.p}</span>
                       <img
-                        src={linkspt.src}
+                        src={link.src}
                         width={40}
                         alt="arrow"
                         className="rounded-full border p-2"
                       />
-                    </a>
+                    </div>
+
+                    {/* show 3 li if active */}
+                    {activeIndex === i && (
+                      <ul className="list-disc pl-8 mt-2 p-3">
+                        <li>{link.p1}</li>
+                        <li>{link.p2}</li>
+                        <li>{link.p3}</li>
+                      </ul>
+                    )}
                   </div>
                 ))}
               </div>
               <img
-                src="https://cdn.prod.website-files.com/687093791857daf2b2090c68/6892294bb1f6b631388be253_RW%2004-p-500.webp"
-                alt="product pic"
-                className="rounded-xl w-100"
+                src="https://cdn.prod.website-files.com/687093791857daf2b2090c68/68a3756ee111567f34811851_Rectangle%2060-p-1080.webp"
+                alt="product pic "
+                className="rounded-xl w-full lg:w-100"
               />
             </div>
           </div>
@@ -786,7 +864,7 @@ const App = () => {
               Blending creativity with strategy, our design skills deliver
               impactful, user-focused solutions across digital platforms.
             </p>
-            <div className="flex flex-col md:flex-row flex-wrap  gap-5">
+            <div className="flex flex-col md:flex-row flex-wrap lg:flex-nowrap   gap-5">
               <div className="bg-[#ECEFF5] rounded-xl p-3 flex flex-col items-start justify-between h-60 gap-4 border-[0.5px]">
                 <img
                   src="https://cdn.prod.website-files.com/687093791857daf2b2090c68/68976199182e8a4213681d77_Why%20Choose%20Icon%2001.webp"
@@ -895,7 +973,11 @@ const App = () => {
                             : "translate-y-0"
                         }`}
                       >
-                        View case study
+                        <a
+                          href="/"
+                        >
+                          View Case Study
+                        </a>
                       </span>
                       <span
                         className={`transition-transform text-4xl ${
